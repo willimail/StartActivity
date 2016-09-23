@@ -1,6 +1,7 @@
 package com.mac.fireflies.wgt.startactivity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -25,4 +26,20 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    protected void onStop() {
+        super.onStop();
+        SharedPreferences setting = getPreferences(MODE_PRIVATE);
+        SharedPreferences.Editor editor = setting.edit();
+        editor.putString("Name", inputText.getText().toString());
+        editor.apply();
+    }
+
+    @Override
+    protected void onPostResume() {
+        super.onPostResume();
+        SharedPreferences settings = getPreferences(MODE_PRIVATE);
+        String nameSaved = settings.getString("Name", "No Name");
+        inputText.setText(nameSaved);
+    }
 }
