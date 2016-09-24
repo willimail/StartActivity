@@ -4,8 +4,11 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
+
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
     EditText inputText;
@@ -16,6 +19,17 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         inputText = ((EditText) findViewById(R.id.textView));
+
+        DataBaseHandler db = new DataBaseHandler(this);
+        db.addContact(new Contact("Jhon", "510234567"));
+        db.addContact(new Contact("Bond", "530510234567"));
+        /* Check the data is created
+        List<Contact> contacts = db.getAllContacts();
+        for (Contact c :
+                contacts) {
+            String logname = c.get_name();
+            Log.d("Name: ", logname);
+        }*/
     }
 
     public void onGo(View view) {
